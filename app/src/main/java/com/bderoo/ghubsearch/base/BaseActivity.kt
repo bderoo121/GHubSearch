@@ -7,25 +7,24 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
-import androidx.viewbinding.ViewBinding
 
-//TODO: Extend this to a BaseMvvmActivity
-abstract class BaseActivity<B: ViewBinding>: AppCompatActivity() {
-    abstract fun getViewBinding(): B
-    lateinit var binding: B
-        private set
+// TODO: Extend this to a BaseMvvmActivity
+// TODO: Use viewBinding
+// TODO: Determine why this isn't working when being subclassed
+abstract class BaseActivity : AppCompatActivity() {
+    //    abstract fun getViewBinding(): B
+    //    lateinit var binding: ViewBinding
+    abstract val layoutResourceId: Int
 
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onCreate(savedInstanceState, persistentState)
-        binding = getViewBinding()
-        setContentView(binding.root)
+        setContentView(layoutResourceId)
     }
 
     private val liveDataLifecycleOwner: LifecycleOwner get() = this
 
     fun <T> LiveData<T>.observe(observer: (T) -> Unit) {
-        observe(liveDataLifecycleOwner, Observer { observer(it) })
+        observe(liveDataLifecycleOwner, { observer(it) })
     }
 
     fun LiveData<Boolean>.bindToVisibility(view: View) {

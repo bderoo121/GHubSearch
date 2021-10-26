@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">GHubSearch</string>
+    <string name="general_string">%s</string>
+
+    <!--  Search Screen  -->
+    <string name="cd_github_repo_search_logo_image">Logo for GitHub Repo Search</string>
+    <string name="github_repo_search">GitHub Repo Search</string>
+    <string name="organization_search_label">Organization</string>
+    <string name="search_button">Search</string>
+    <string name="search_button_with_text">Search: %s</string>
+    <string name="search_description">To get started, type in the name of an organization (like Square, Facebook, New York Times, etc.) to see a selection of their most popular repos.</string>
+
 </resources>
