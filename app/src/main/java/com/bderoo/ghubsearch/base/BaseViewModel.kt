@@ -1,8 +1,13 @@
 package com.bderoo.ghubsearch.base
 
 import androidx.lifecycle.ViewModel
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 
-// TODO: Make this use Rx and have more functionality
 open class BaseViewModel: ViewModel() {
-//    protected val disposables = CompositeDisposable
+    protected val disposables = CompositeDisposable()
+
+    override fun onCleared() {
+        super.onCleared()
+        disposables.clear()
+    }
 }
