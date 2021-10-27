@@ -1,7 +1,6 @@
 package com.bderoo.ghubsearch.screens.search
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.bderoo.ghubsearch.R
@@ -11,7 +10,7 @@ import com.bderoo.ghubsearch.service.Repo
 import com.bderoo.ghubsearch.util.StringResource
 
 class SearchViewModel : BaseViewModel() {
-//    TODO: This should be an injected dependency
+    // TODO: This should be an injected dependency
     private val gitHubService = GitHubService()
 
     private val organizationName = MutableLiveData("")
@@ -22,22 +21,20 @@ class SearchViewModel : BaseViewModel() {
         if (name.isNullOrBlank()) StringResource(R.string.search_button)
         else StringResource(R.string.search_button_with_text, name)
     }
-
     val showLoadingState: LiveData<Boolean> = Transformations.map(networkState) { state ->
         state == NetworkState.LOADING
     }
-
     val showErrorState: LiveData<Boolean> = Transformations.map(networkState) { state ->
         state == NetworkState.ERROR
     }
-
-    // Do we really need this?
-    val showEmptyState = MediatorLiveData<Boolean>().apply {
-        val combiner = {
-            this.value = networkState.value == NetworkState.NONE && repoList.value.isNullOrEmpty()
-        }
-        addSource(networkState) { combiner() }
-        addSource(repoList) { combiner() }
+    val searchResultDescription: LiveData<StringResource> = Transformations.map(repoList) { repos ->
+        val repoCount = repos.orEmpty().size
+        if (repoCount <= 3) StringResource.plural(
+            R.plurals.search_results_few, repoCount, repoCount
+        ) else StringResource(R.string.search_results_many, repoCount)
+    }
+    val displayedRepos: LiveData<List<Repo>> = Transformations.map(repoList) { repos ->
+        repos.take(3)
     }
 
     fun onOrganizationTextChanged(text: String) {
@@ -50,7 +47,7 @@ class SearchViewModel : BaseViewModel() {
         val orgName = organizationName.value.orEmpty()
 
         disposables.add(
-            gitHubService.getReposByOrg(orgName)
+            gitHubService.getPopularReposByOrg(orgName)
                 .subscribe(
                     { repos ->
                         println(repos.toString())

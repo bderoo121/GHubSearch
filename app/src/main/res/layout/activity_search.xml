@@ -85,6 +85,29 @@
         app:layout_constraintTop_toBottomOf="@id/organization_search"
         tools:text="Search" />
 
+    <TextView
+        android:id="@+id/search_results_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="16dp"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_button"
+        tools:text="Found 26 repos. These are the 3 most popular:" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/repo_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_results_description" />
+
     <!-- TODO This could be extracted into its own include file -->
     <FrameLayout
         android:id="@+id/loading_indicator_container"

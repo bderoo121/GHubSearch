@@ -20,7 +20,7 @@ class GitHubService {
     }
 
     // TODO Rework for multiple fetches for orgs whose repo counts exceed the search max
-    fun getReposByOrg(orgName: String): Single<List<Repo>> {
+    fun getPopularReposByOrg(orgName: String): Single<List<Repo>> {
         return gitHubApi.getReposByOrg(orgName)
             .map { repoList ->
                 val sortedRepos = repoList.sortedByDescending { repo -> repo.stargazers_count }

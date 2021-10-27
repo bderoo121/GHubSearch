@@ -13,5 +13,10 @@
     <string name="search_button">Search</string>
     <string name="search_button_with_text">Search: %s</string>
     <string name="search_description">To get started, type in the name of an organization (like Square, Facebook, NYTimes, etc.) to see a selection of their most popular repos.</string>
+    <plurals name="search_results_few">
+        <item quantity="one">Found %d result.</item>
+        <item quantity="other">Found %d results.</item>
+    </plurals>
+    <string name="search_results_many">Found %d results. These are their 3 most popular: </string>
 
 </resources>

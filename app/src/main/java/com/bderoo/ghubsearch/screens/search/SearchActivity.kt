@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.FrameLayout
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
@@ -37,6 +38,11 @@ class SearchActivity : AppCompatActivity() {
         errorView.setOnClickListener { viewModel.onCloseErrorModal() }
         viewModel.showErrorState.observe(this, { hasError ->
             errorView.visibility = if (hasError) View.VISIBLE else View.GONE
+        })
+
+        val resultsDescription = findViewById<TextView>(R.id.search_results_description)
+        viewModel.searchResultDescription.observe(this, { description ->
+            resultsDescription.text = getString(description)
         })
     }
 }

@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <ScrollView
+        android:id="@+id/search_pane"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -105,6 +106,29 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
+    <TextView
+        android:id="@+id/search_results_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="16dp"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@id/search_pane"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Found 26 repos. These are the 3 most popular:" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/repo_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/search_pane"
+        app:layout_constraintTop_toBottomOf="@id/search_results_description" />
 
     <FrameLayout
         android:id="@+id/loading_indicator_container"
