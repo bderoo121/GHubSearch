@@ -1,14 +1,14 @@
 package com.bderoo.ghubsearch.screens.search
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.FrameLayout
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
-import androidx.lifecycle.Observer
 import com.bderoo.ghubsearch.R
-import com.bderoo.ghubsearch.util.StringResource
 import com.bderoo.ghubsearch.util.getString
 
 class SearchActivity : AppCompatActivity() {
@@ -23,9 +23,20 @@ class SearchActivity : AppCompatActivity() {
         }
 
         val searchButton = findViewById<Button>(R.id.search_button)
-        val searchButtonTextObs = Observer<StringResource> { text ->
+        searchButton.setOnClickListener { viewModel.onSearchPressed() }
+        viewModel.searchButtonText.observe(this, { text ->
             searchButton.text = getString(text)
-        }
-        viewModel.searchButtonText.observe(this, searchButtonTextObs)
+        })
+
+        val loadingView = findViewById<FrameLayout>(R.id.loading_indicator_container)
+        viewModel.showLoadingState.observe(this, { isLoading ->
+            loadingView.visibility = if (isLoading) View.VISIBLE else View.GONE
+        })
+
+        val errorView = findViewById<FrameLayout>(R.id.error_modal_container)
+        errorView.setOnClickListener { viewModel.onCloseErrorModal() }
+        viewModel.showErrorState.observe(this, { hasError ->
+            errorView.visibility = if (hasError) View.VISIBLE else View.GONE
+        })
     }
 }
