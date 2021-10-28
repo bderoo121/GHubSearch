@@ -62,6 +62,10 @@ class SearchViewModel : BaseViewModel() {
     fun onCloseErrorModal() {
         networkState.value = NetworkState.NONE
     }
+
+    fun onRepoSelected(repo: Repo) {
+        // TODO
+    }
 }
 
 // TODO: Extract to a general-use models file

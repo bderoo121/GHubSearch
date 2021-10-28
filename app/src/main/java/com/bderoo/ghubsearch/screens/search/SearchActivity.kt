@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
+import androidx.recyclerview.widget.RecyclerView
 import com.bderoo.ghubsearch.R
 import com.bderoo.ghubsearch.util.getString
 
@@ -43,6 +44,14 @@ class SearchActivity : AppCompatActivity() {
         val resultsDescription = findViewById<TextView>(R.id.search_results_description)
         viewModel.searchResultDescription.observe(this, { description ->
             resultsDescription.text = getString(description)
+        })
+
+        val repoList = findViewById<RecyclerView>(R.id.repo_list)
+        val repoAdapter = SearchResultAdapter(
+            itemClickListener = { repo -> viewModel.onRepoSelected(repo) })
+        repoList.adapter = repoAdapter
+        viewModel.displayedRepos.observe(this, { repos ->
+            repoAdapter.setResults(repos)
         })
     }
 }

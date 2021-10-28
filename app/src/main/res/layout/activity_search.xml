@@ -103,10 +103,15 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_results_description" />
+        app:layout_constraintTop_toBottomOf="@id/search_results_description"
+        tools:itemCount="3"
+        tools:listitem="@layout/list_item_search_repo" />
 
     <!-- TODO This could be extracted into its own include file -->
     <FrameLayout
