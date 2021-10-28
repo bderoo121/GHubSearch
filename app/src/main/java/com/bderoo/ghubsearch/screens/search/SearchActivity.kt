@@ -1,7 +1,10 @@
 package com.bderoo.ghubsearch.screens.search
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.FrameLayout
@@ -20,12 +23,20 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
-        findViewById<EditText>(R.id.organization_search).doAfterTextChanged { text ->
-            viewModel.onOrganizationTextChanged(text.toString())
+        findViewById<EditText>(R.id.organization_search).apply {
+            doAfterTextChanged { text ->
+                viewModel.onOrganizationTextChanged(text.toString())
+            }
+            setOnEditorActionListener { _, actionId, _ ->
+                return@setOnEditorActionListener if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    onSearchPressed(this)
+                    true
+                } else false
+            }
         }
 
         val searchButton = findViewById<Button>(R.id.search_button)
-        searchButton.setOnClickListener { viewModel.onSearchPressed() }
+        searchButton.setOnClickListener { onSearchPressed(searchButton) }
         viewModel.searchButtonText.observe(this, { text ->
             searchButton.text = getString(text)
         })
@@ -53,5 +64,11 @@ class SearchActivity : AppCompatActivity() {
         viewModel.displayedRepos.observe(this, { repos ->
             repoAdapter.setResults(repos)
         })
+    }
+
+    private fun onSearchPressed(view: View) {
+        val inputManager = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        inputManager?.hideSoftInputFromWindow(view.windowToken, 0)
+        viewModel.onSearchPressed()
     }
 }
