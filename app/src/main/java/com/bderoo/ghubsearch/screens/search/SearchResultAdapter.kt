@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bderoo.ghubsearch.R
-import com.bderoo.ghubsearch.service.Repo
+import com.bderoo.ghubsearch.model.Repo
 
 class SearchResultAdapter(private val itemClickListener: (Repo) -> Unit) :
     RecyclerView.Adapter<SearchResultAdapter.RepoViewHolder>() {

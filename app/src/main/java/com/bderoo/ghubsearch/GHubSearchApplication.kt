@@ -1,7 +1,7 @@
 package com.bderoo.ghubsearch
 
 import android.app.Application
-import com.bderoo.ghubsearch.service.GitHubApi
+import com.bderoo.ghubsearch.api.GitHubApi
 import com.bderoo.ghubsearch.service.GitHubService
 import com.bderoo.ghubsearch.service.GitHubServiceImpl
 import dagger.Module

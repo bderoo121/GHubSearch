@@ -1,18 +1,18 @@
 package com.bderoo.ghubsearch.screens.search
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.bderoo.ghubsearch.R
 import com.bderoo.ghubsearch.base.BaseViewModelTest
+import com.bderoo.ghubsearch.model.Repo
 import com.bderoo.ghubsearch.service.GitHubService
-import com.bderoo.ghubsearch.service.Repo
 import com.bderoo.ghubsearch.util.StringResource
+import com.bderoo.ghubsearch.util.createRepo
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.reactivex.rxjava3.core.Single
-import junit.framework.Assert.assertEquals
-import junit.framework.Assert.assertFalse
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Before
 import org.junit.Test
 
@@ -227,29 +227,6 @@ class SearchViewModelTest : BaseViewModelTest() {
             viewModel.onSearchPressed()
             viewModel.onRepoSelected(repo3)
             assertEquals("www.zombo.com", viewModel.openWebpageEvent.value)
-        }
-    }
-
-    private fun createRepo(
-        id: Int = 0,
-        name: String = "Name",
-        fullName: String = "FullName",
-        url: String = "http://test.com",
-        description: String = "Description",
-        forks: Int = 0,
-        stars: Int = 0,
-        topics: List<String> = emptyList(),
-    ): Repo = Repo(id, name, fullName, url, description, forks, stars, topics)
-
-    /*
-     * Observes a [LiveData] until the `block` is done executing.
-     */
-    fun <T> LiveData<T>.test(observer: Observer<T> = Observer<T> {}, block: () -> Unit) {
-        try {
-            observeForever(observer)
-            block()
-        } finally {
-            removeObserver(observer)
         }
     }
 }

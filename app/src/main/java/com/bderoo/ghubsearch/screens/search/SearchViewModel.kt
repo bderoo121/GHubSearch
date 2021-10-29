@@ -5,8 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.bderoo.ghubsearch.R
 import com.bderoo.ghubsearch.base.BaseViewModel
+import com.bderoo.ghubsearch.model.NetworkState
+import com.bderoo.ghubsearch.model.Repo
 import com.bderoo.ghubsearch.service.GitHubService
-import com.bderoo.ghubsearch.service.Repo
 import com.bderoo.ghubsearch.util.SingleLiveEvent
 import com.bderoo.ghubsearch.util.StringResource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -72,11 +73,4 @@ class SearchViewModel @Inject constructor(
     fun onRepoSelected(repo: Repo) {
         openWebpageEvent.postValue(repo.html_url)
     }
-}
-
-// TODO: Extract to a general-use models file
-enum class NetworkState {
-    NONE,
-    LOADING,
-    ERROR
 }
