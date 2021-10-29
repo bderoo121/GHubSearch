@@ -19,9 +19,7 @@ class GitHubServiceImpl @Inject constructor(
     override fun getPopularReposByOrg(orgName: String): Single<List<Repo>> {
         return gitHubApi.getReposByOrg(orgName)
             .map { repoList ->
-                val sortedRepos = repoList.sortedByDescending { repo -> repo.stargazers_count }
-                print("Sorted RepoList: $sortedRepos")
-                sortedRepos
+                repoList.sortedByDescending { repo -> repo.stargazers_count }
             }
     }
 }
@@ -44,8 +42,5 @@ data class Repo(
     val description: String,
     val forks_count: Int,
     val stargazers_count: Int,
-    val size: Int,
     val topics: List<String>,
-    val archived: Boolean,
-    val disabled: Boolean,
 )

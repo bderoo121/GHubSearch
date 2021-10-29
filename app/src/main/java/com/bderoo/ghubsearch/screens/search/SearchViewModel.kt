@@ -55,7 +55,6 @@ class SearchViewModel @Inject constructor(
             gitHubService.getPopularReposByOrg(orgName)
                 .subscribe(
                     { repos ->
-                        println(repos.toString())
                         networkState.postValue(NetworkState.NONE)
                         repoList.postValue(repos)
                     },
@@ -65,7 +64,9 @@ class SearchViewModel @Inject constructor(
     }
 
     fun onCloseErrorModal() {
-        networkState.value = NetworkState.NONE
+        if (networkState.value == NetworkState.ERROR) {
+            networkState.value = NetworkState.NONE
+        }
     }
 
     fun onRepoSelected(repo: Repo) {

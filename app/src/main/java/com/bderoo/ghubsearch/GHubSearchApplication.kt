@@ -12,6 +12,7 @@ import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
+import javax.inject.Singleton
 
 @HiltAndroidApp
 class GHubSearchApplication : Application() {
@@ -19,6 +20,8 @@ class GHubSearchApplication : Application() {
     @Module
     @InstallIn(SingletonComponent::class)
     object ApiModule {
+
+        @Singleton
         @Provides
         fun bindGitHubRetrofit(): GitHubApi = Retrofit.Builder()
             .baseUrl("https://api.github.com/")
@@ -32,6 +35,7 @@ class GHubSearchApplication : Application() {
     @InstallIn(SingletonComponent::class)
     object ServiceModule {
 
+        @Singleton
         @Provides
         fun bindGitHubService(api: GitHubApi): GitHubService = GitHubServiceImpl(api)
     }
