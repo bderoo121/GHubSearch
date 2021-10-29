@@ -9,11 +9,13 @@ import com.bderoo.ghubsearch.service.GitHubService
 import com.bderoo.ghubsearch.service.Repo
 import com.bderoo.ghubsearch.util.SingleLiveEvent
 import com.bderoo.ghubsearch.util.StringResource
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class SearchViewModel : BaseViewModel() {
-    // TODO: This should be an injected dependency
-    private val gitHubService = GitHubService()
-
+@HiltViewModel
+class SearchViewModel @Inject constructor(
+    private val gitHubService: GitHubService
+) : BaseViewModel() {
     private val organizationName = MutableLiveData("")
     private val repoList = MutableLiveData<List<Repo>>(emptyList())
     private val networkState = MutableLiveData(NetworkState.NONE)

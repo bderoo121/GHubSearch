@@ -17,7 +17,9 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import com.bderoo.ghubsearch.R
 import com.bderoo.ghubsearch.util.getString
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SearchActivity : AppCompatActivity() {
     private val viewModel by viewModels<SearchViewModel>()
 

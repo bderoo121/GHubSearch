@@ -1,26 +1,22 @@
 package com.bderoo.ghubsearch.service
 
 import io.reactivex.rxjava3.core.Single
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
-import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
 import retrofit2.http.Query
+import javax.inject.Inject
 
-class GitHubService {
-    private val gitHubApi: GitHubApi by lazy {
-        Retrofit.Builder()
-            .baseUrl("https://api.github.com/")
-            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-            .addConverterFactory(MoshiConverterFactory.create())
-            .build()
-            .create(GitHubApi::class.java)
-    }
+interface GitHubService {
+    fun getPopularReposByOrg(orgName: String): Single<List<Repo>>
+}
+
+class GitHubServiceImpl @Inject constructor(
+    private val gitHubApi: GitHubApi
+) : GitHubService {
 
     // TODO Rework for multiple fetches for orgs whose repo counts exceed the search max
-    fun getPopularReposByOrg(orgName: String): Single<List<Repo>> {
+    override fun getPopularReposByOrg(orgName: String): Single<List<Repo>> {
         return gitHubApi.getReposByOrg(orgName)
             .map { repoList ->
                 val sortedRepos = repoList.sortedByDescending { repo -> repo.stargazers_count }
