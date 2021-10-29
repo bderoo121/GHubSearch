@@ -1,6 +1,7 @@
 package com.bderoo.ghubsearch.screens.search
 
 import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -11,6 +12,7 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import com.bderoo.ghubsearch.R
@@ -22,6 +24,11 @@ class SearchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
+
+        viewModel.openWebpageEvent.observe(this, { url ->
+            val builder = CustomTabsIntent.Builder().build()
+            builder.launchUrl(this, Uri.parse(url))
+        })
 
         findViewById<EditText>(R.id.organization_search).apply {
             doAfterTextChanged { text ->

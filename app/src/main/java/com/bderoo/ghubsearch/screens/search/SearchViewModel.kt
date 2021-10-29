@@ -7,6 +7,7 @@ import com.bderoo.ghubsearch.R
 import com.bderoo.ghubsearch.base.BaseViewModel
 import com.bderoo.ghubsearch.service.GitHubService
 import com.bderoo.ghubsearch.service.Repo
+import com.bderoo.ghubsearch.util.SingleLiveEvent
 import com.bderoo.ghubsearch.util.StringResource
 
 class SearchViewModel : BaseViewModel() {
@@ -16,6 +17,8 @@ class SearchViewModel : BaseViewModel() {
     private val organizationName = MutableLiveData("")
     private val repoList = MutableLiveData<List<Repo>>(emptyList())
     private val networkState = MutableLiveData(NetworkState.NONE)
+
+    val openWebpageEvent = SingleLiveEvent<String>()
 
     val searchButtonText: LiveData<StringResource> = Transformations.map(organizationName) { name ->
         if (name.isNullOrBlank()) StringResource(R.string.search_button)
@@ -64,7 +67,7 @@ class SearchViewModel : BaseViewModel() {
     }
 
     fun onRepoSelected(repo: Repo) {
-        // TODO
+        openWebpageEvent.postValue(repo.html_url)
     }
 }
 
