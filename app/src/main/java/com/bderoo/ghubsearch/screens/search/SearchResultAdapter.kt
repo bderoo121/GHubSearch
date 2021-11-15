@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bderoo.ghubsearch.R
+import com.bderoo.ghubsearch.databinding.ListItemSearchRepoBinding
 import com.bderoo.ghubsearch.model.Repo
 
 class SearchResultAdapter(private val itemClickListener: (Repo) -> Unit) :
@@ -20,9 +21,9 @@ class SearchResultAdapter(private val itemClickListener: (Repo) -> Unit) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.list_item_search_repo, parent, false)
-        return RepoViewHolder(view)
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = ListItemSearchRepoBinding.inflate(inflater, parent, false)
+        return RepoViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: RepoViewHolder, position: Int) {
@@ -31,12 +32,14 @@ class SearchResultAdapter(private val itemClickListener: (Repo) -> Unit) :
 
     override fun getItemCount(): Int = results.size
 
-    inner class RepoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val repoName: TextView = itemView.findViewById(R.id.repo_name)
-        private val repoDescription: TextView = itemView.findViewById(R.id.repo_description)
-        private val starCount: TextView = itemView.findViewById(R.id.repo_star_count)
-        private val forkCount: TextView = itemView.findViewById(R.id.repo_fork_count)
-        private val tags: TextView = itemView.findViewById(R.id.repo_tags)
+    inner class RepoViewHolder(binding: ListItemSearchRepoBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        private val repoName: TextView = binding.repoName
+        private val repoDescription: TextView = binding.repoDescription
+        private val starCount: TextView = binding.repoStarCount
+        private val forkCount: TextView = binding.repoForkCount
+        private val tags: TextView = binding.repoTags
 
         fun bind(repo: Repo) {
             repoName.text = repo.name

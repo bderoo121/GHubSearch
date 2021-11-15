@@ -1,17 +1,22 @@
 package com.bderoo.ghubsearch.base
 
 import android.os.Bundle
-import android.os.PersistableBundle
+import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
+import androidx.viewbinding.ViewBinding
 
 // TODO: Extend this to a BaseMvvmActivity
 // TODO: Use viewBinding
 // TODO: Determine why this isn't working when being subclassed
-abstract class BaseActivity : AppCompatActivity() {
-    abstract val layoutResourceId: Int
+abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
+    abstract val inflater: (LayoutInflater) -> VB
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
-        setContentView(layoutResourceId)
+    protected lateinit var binding: VB
+        private set
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = inflater.invoke(layoutInflater)
+        setContentView(binding.root)
     }
 }

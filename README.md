@@ -11,8 +11,6 @@ You should demonstrate the following in your application:
 
 - Proper MVVM architecture
 - View Binding
-  - Temporarily using findViewById
 - Dependency Injection with Dagger 2 & Hilt
-- Logging with Timber
 - Retrofit networking with RxKotlin
 - 

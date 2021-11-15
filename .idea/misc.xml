@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/layout-land/activity_search.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_search.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/list_item_search_repo.xml" value="0.184375" />
       </map>
     </option>
   </component>

@@ -40,7 +40,7 @@ class GitHubServiceTest {
     }
 
     @Test
-    fun `Get repos by organization name, sorted by populartity`() {
+    fun `Get repos by organization name, sorted by popularity`() {
         val repo1 = createRepo(id = 1, stars = 400)
         val repo2 = createRepo(id = 2, stars = 4)
         val repo3 = createRepo(id = 3, stars = 40)
